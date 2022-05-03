@@ -73,6 +73,7 @@ class Detector {
         if (detected.length != 0 && globals.SCENE.getObjectByName("Flashlight").visible) {
             if (detected[0].distance <= lineLen) {
                 globals.GAMEOVER = true;
+                console.log(globals.MAIN_CAMERA.position);
             }
             
         }

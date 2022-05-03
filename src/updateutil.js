@@ -56,7 +56,7 @@ export function updateGuards(){
     
             let guardBox = new THREE.Box3().setFromObject(guardBbox); */
     
-            let guardBox = new THREE.Box3().setFromObject(guard.mesh).expandByScalar(1.5);
+            let guardBox = new THREE.Box3().setFromObject(guard.mesh).expandByScalar(2);
     
             let playerBox = new THREE.Box3();
             globals.PLAYER.geometry.computeBoundingBox();

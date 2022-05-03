@@ -78,7 +78,7 @@ export function loadAssets(){
     }
 }
 
-function createBboxes(models){
+/* function createBboxes(models){
     for(let key of Object.keys(models)){
         const geometry = new THREE.BoxGeometry(1, 1, 1);
         const material = new THREE.MeshBasicMaterial( {color: 0x00FF00, wireframe: true});
@@ -99,7 +99,7 @@ function createBboxes(models){
         model.mesh.add(meshBox);
         model.bbox = meshBox;
     }
-}
+} */
 
 export function setAssets(){
     let models = globals.MODELS;
@@ -133,4 +133,13 @@ export function setAssets(){
         }
     }
     globals.ASSETS_LOADED = true;
+}
+
+export function resetAssets(){
+    for(let key of Object.keys(models)){
+        globals.SCENE.remove(models[key].mesh);
+        globals.SCENE.add(models[key].mesh);
+    }
+
+    setAssets();
 }

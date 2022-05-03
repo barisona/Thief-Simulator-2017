@@ -4,6 +4,15 @@ import * as THREE from "../../build/three.module.js"
 import {globals} from '../globals'
 import Detector from './Detector.js';
 
+// in room order (1 to 5)
+let positions = [
+  new THREE.Vector3(-12, 0, 8),
+  new THREE.Vector3(18, 0, 20),
+  new THREE.Vector3(10, 0, 26),
+  new THREE.Vector3(19, 0, -33),
+  new THREE.Vector3(4, 0, -18)
+];
+
 class Guard {
   constructor (mesh, roomNum, position, clips, mixer, id) {
     if(mesh){
@@ -18,7 +27,7 @@ class Guard {
       //this.direction.random();
       this.direction.y = 0;
       this.mixer = mixer;
-      this.detector = new Detector(this.position.clone().add(new THREE.Vector3(0, 6, 0)), this.direction.clone(), 7, 30 );
+      this.detector = new Detector(this.position.clone().add(new THREE.Vector3(0, 6, 0)), this.direction.clone(), 10, 30 );
       
       const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
       const material = new THREE.MeshBasicMaterial();
@@ -60,19 +69,18 @@ class Guard {
     }
   }
 
+  static resetGuards(){
+    for(let i = 0; i < globals.GUARDS.length; i++){
+      let guard = globals.GUARDS[i];
+      guard.mesh.position.copy(positions[i]);
+    }
+  }
+
   static async setGuards(){
     let scene = globals.SCENE;
     let ghostScene = globals.GHOSTSCENE;
     let ghostBoxes = [];
 
-    // in room order (1 to 5)
-    let positions = [
-      new THREE.Vector3(-12, 0, 8),
-      new THREE.Vector3(18, 0, 20),
-      new THREE.Vector3(10, 0, 26),
-      new THREE.Vector3(19, 0, -33),
-      new THREE.Vector3(4, 0, -18)
-    ]
     for(let i = 0; i < positions.length; i++){
         let positionGuard = positions[i];
         let guard = await Guard.build(i + 1, positionGuard, i);

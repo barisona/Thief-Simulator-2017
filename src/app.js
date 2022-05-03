@@ -24,6 +24,7 @@ import {setAssets, loadAssets} from './components/objects/assets.js'
 import { initializeAndLoad } from './components/init';
 import {loadHTML, loadingBar, createCrosshair} from './loadHtml.js'
 import Stats from 'stats.js'
+import {restart} from './restart.js'
 
 const stats = new Stats()
 stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -90,7 +91,10 @@ const controller = new Controller(controls, scene, document, camera);
 // controls.maxDistance = 16;
 
 document.body.addEventListener('mousedown', function () {
-    if(globals.GAMEOVER || globals.GAMEWIN) console.log("restart");
+    if(globals.GAMEOVER || globals.GAMEWIN){
+        restart();
+        window.requestAnimationFrame(onAnimationFrameHandler);
+    }
     if (globals.PAUSE) {
         controls.lock();
     }
@@ -229,7 +233,7 @@ const onAnimationFrameHandler = (timeStamp) => {
 
     if(globals.GAMEOVER || globals.GAMEWIN){
         let score = document.createElement('div');
-        score.innerHTML = 'Stole ' + (globals.NUM_ITEMS - globals.ITEMS.length) + ' out of ' + globals.NUM_ITEMS + ' items';
+        score.innerHTML = 'Stole ' + (globals.ITEMS_COPY.length - globals.ITEMS.length) + ' out of ' + globals.ITEMS_COPY.length + ' items';
         score.style.fontSize = "25px";
         score.style.marginTop = "35px";
 
@@ -256,7 +260,6 @@ const onAnimationFrameHandler = (timeStamp) => {
             console.log(1);
         };
     }
-
 
     if (!globals.PAUSE && !globals.GAMEOVER && !globals.GAMEWIN) {
         window.requestAnimationFrame(onAnimationFrameHandler);

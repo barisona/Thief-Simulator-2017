@@ -38,7 +38,7 @@ export default {
     INNER_CIRCLE: null,
     SWEEPING_CAMERAS: null,
     ITEMS: ['Guitar', 'Diamonds'],
-    NUM_ITEMS: 2,
+    ITEMS_COPY: ['Guitar', 'Diamonds'], // needed for resetting
     ITEMSLISTHTML: null,
     GAMEWIN: false
 }
