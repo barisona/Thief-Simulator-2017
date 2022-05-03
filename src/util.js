@@ -27,7 +27,6 @@ export function hidePauseMenu() {
         pausemenuContainer.style.opacity = '1'
         setTimeout(() => {
             pausemenuContainer.style.display = 'none';
-            globals.OUTER_CIRCLE = 'block';
         }, 100)
     }
 }
@@ -37,8 +36,9 @@ export function showItemList() {
     if (itemContainer.style.display === 'none') {
         itemContainer.style.opacity = '1'
         setTimeout(() => {
+            globals.OUTER_CIRCLE.style.display = 'none';
+            globals.INNER_CIRCLE.style.display = 'none';
             itemContainer.style.display = 'block';
-            globals.OUTER_CIRCLE = 'none';
         }, 100)
     }
 }
@@ -48,8 +48,9 @@ export function hideItemList() {
     if (itemContainer.style.display !== 'none') {
         itemContainer.style.opacity = '1'
         setTimeout(() => {
-            itemContainer.style.display = 'none'
-            globals.OUTER_CIRCLE = 'block';
+            itemContainer.style.display = 'none';
+            globals.OUTER_CIRCLE.style.display = 'block';
+            globals.INNER_CIRCLE.style.display = 'block';
         }, 100)
     }
 }

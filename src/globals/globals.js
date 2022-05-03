@@ -38,6 +38,7 @@ export default {
     INNER_CIRCLE: null,
     SWEEPING_CAMERAS: null,
     ITEMS: ['Guitar', 'Diamonds'],
+    NUM_ITEMS: 2,
     ITEMSLISTHTML: null,
     GAMEWIN: false
 }

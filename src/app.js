@@ -90,6 +90,7 @@ const controller = new Controller(controls, scene, document, camera);
 // controls.maxDistance = 16;
 
 document.body.addEventListener('mousedown', function () {
+    if(globals.GAMEOVER || globals.GAMEWIN) console.log("restart");
     if (globals.PAUSE) {
         controls.lock();
     }
@@ -104,7 +105,6 @@ controls.addEventListener('lock', () => {
     window.requestAnimationFrame(onAnimationFrameHandler);
 })
 controls.addEventListener('unlock', function () {
-    console.log("Hey");
     globals.INNER_CIRCLE.style.display = "none";
     globals.OUTER_CIRCLE.style.display = "none";
     if(!globals.GAMEOVER && !globals.GAMEWIN){
@@ -145,9 +145,12 @@ const onAnimationFrameHandler = (timeStamp) => {
     let innerCircle = globals.INNER_CIRCLE;
 
     if(hoverOn && !globals.GAMEOVER && !globals.GAMEWIN){
+        console.log(hoverOn);
         if(hoverOn == "Door_0_1"){
-            outerCircle.style.border = "2px solid green";
-            innerCircle.style.backgroundColor = "green";
+            if (globals.ITEMS.length == 0){
+                outerCircle.style.border = "2px solid red";
+                innerCircle.style.backgroundColor = "red";
+            }
         }
         else{
             outerCircle.style.border = "2px solid green";
@@ -224,15 +227,34 @@ const onAnimationFrameHandler = (timeStamp) => {
         globals.PAUSE = true
     }
 
-    if (globals.GAMEOVER) {
+    if(globals.GAMEOVER || globals.GAMEWIN){
+        let score = document.createElement('div');
+        score.innerHTML = 'Stole ' + (globals.NUM_ITEMS - globals.ITEMS.length) + ' out of ' + globals.NUM_ITEMS + ' items';
+        score.style.fontSize = "25px";
+        score.style.marginTop = "35px";
+
+        let restartButton = document.createElement('div');
+        restartButton.id = 'restart-button';
+        restartButton.innerHTML = 'Click Anywhere to Restart the Game';
+        restartButton.style.fontSize = "18px";
+        restartButton.style.marginTop = "35px";
+
         globals.INNER_CIRCLE.style.display = "none";
         globals.OUTER_CIRCLE.style.display = "none";
-        globals.END_OF_GAME.innerHTML = "You Got Caught!";
-    }
-    if (globals.GAMEWIN) {
-        globals.INNER_CIRCLE.style.display = "none";
-        globals.OUTER_CIRCLE.style.display = "none";
-        globals.END_OF_GAME.innerHTML = "WINNER WINNER CHICKEN DINNER";
+
+        if (globals.GAMEOVER) {
+            globals.END_OF_GAME.innerHTML = "You Got Caught!";
+        }
+        if (globals.GAMEWIN) {
+            globals.END_OF_GAME.innerHTML = "WINNER WINNER CHICKEN DINNER";
+        }
+
+        globals.END_OF_GAME.appendChild(score);
+        globals.END_OF_GAME.appendChild(restartButton);
+
+        restartButton.onclick = function () {
+            console.log(1);
+        };
     }
 
 
