@@ -16,8 +16,7 @@ let models = {
         obj: 'Flashlight.obj',
         mtl: 'Flashlight.mtl',
         mesh: null,
-        rot: new THREE.Vector3(0, 0, 0),
-        angle: Math.PI,
+        angle: null,
         bboxScale: new THREE.Vector3(4, 3, 15),
         bbox: null,
         pos: null,
@@ -27,8 +26,7 @@ let models = {
     'Diamonds': {
         json: 'Diamonds.json',
         mesh: null,
-        rot: new THREE.Vector3(0, 0, 0),
-        angle: new THREE.Vector3(0, 0, 0),
+        angle: null,
         bboxScale: new THREE.Vector3(8, 4, 4),
         bbox: null,
         pos: new THREE.Vector3(50, 3, -10),
@@ -37,9 +35,8 @@ let models = {
     },
     'Guitar': {
         json: "Guitar.json",
-        rot: new THREE.Vector3(0, 0, 0),
         mesh: null,
-        angle: new THREE.Vector3(0, 0, 0),
+        angle: null,
         bboxScale: new THREE.Vector3(4, 15, 4),
         bbox: null,
         pos: new THREE.Vector3(42, 3, 30),
@@ -48,9 +45,8 @@ let models = {
     },
     'Ring': {
         json: "Ring.json",
-        rot: new THREE.Vector3(0, 0, 0),
         mesh: null,
-        angle: new THREE.Vector3(0, 0, 0),
+        angle: null,
         bboxScale: new THREE.Vector3(8, 4, 4),
         bbox: null,
         pos: new THREE.Vector3(10, 3, 32),
@@ -60,9 +56,8 @@ let models = {
     'Notebook': {
         obj: 'Notebook.obj',
         mtl: 'Notebook.mtl',
-        rot: new THREE.Vector3(0, 0, 0),
         mesh: null,
-        angle: new THREE.Vector3(0, 180, 0),
+        angle: Math.PI,
         bboxScale: new THREE.Vector3(20, 15, 4),
         bbox: null,
         pos: new THREE.Vector3(17, 10, -20),
@@ -156,8 +151,6 @@ export function setAssets(){
             rotateQ.setFromAxisAngle(rotateAngle, angle);
             obj.mesh.quaternion.rotateTowards(rotateQ, angle);
         }
-
-        obj.mesh.rotation.copy(obj.rot);
 
         if(obj.clickable){
             let clickable = {};
