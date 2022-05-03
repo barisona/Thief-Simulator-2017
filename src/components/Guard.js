@@ -7,10 +7,10 @@ import Detector from './Detector.js';
 // in room order (1 to 5)
 let positions = [
   new THREE.Vector3(-12, 0, 8),
-  new THREE.Vector3(18, 0, 20),
+  new THREE.Vector3(40, 0, 20),
   new THREE.Vector3(10, 0, 26),
   new THREE.Vector3(19, 0, -33),
-  new THREE.Vector3(4, 0, -18)
+  new THREE.Vector3(-5, 0, -25)
 ];
 
 class Guard {

@@ -2,7 +2,7 @@ import {globals} from './globals'
 import * as THREE from "../build/three.module.js"
 
 const pW = 2.5;
-const height = 4;
+const height = 7;
 let prevPos = globals.PREV_POS;
 let prevNoCol = false;
 

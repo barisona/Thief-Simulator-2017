@@ -285,6 +285,9 @@ class Controller {
         if (this.camera.position.y < height) {
             this.camera.position.y = height;
         }
+        if (this.camera.position.y > 10) {
+            this.camera.position.y = 10;
+        }
         
         
 

@@ -71,8 +71,11 @@ export function updateGuards(){
             let dZ = guard.direction.z * guard.speed * delta;
     
             collided = shootRays(guard.mesh.position, guard.direction, 2);
-    
+            console.log(guard.mesh.position);
+            console.log(guard.direction);
             if (collided) {
+
+                console.log("guard collision")
                 guard.mesh.position.x -= 2*dX;
                 guard.mesh.position.z -= 2*dZ;
             }
@@ -93,9 +96,8 @@ export function updateGuards(){
 // COPIED CODE
 function shootRays(raycastPos, dir, pW) {
     let collided = false;
-
     const frontRaycaster = new THREE.Raycaster();
-    frontRaycaster.set(raycastPos.clone(), dir.clone());
+    frontRaycaster.set(raycastPos.clone().add(new THREE.Vector3(0, 1, 0)), dir.clone());
     let farthest = getClosestIntersection(frontRaycaster);
     if (farthest != undefined && farthest.distance < pW && farthest.object.name != "Flashlightbbox" && farthest.object.name != "Lanterna_Cylinder") {
         collided = true;
@@ -111,6 +113,7 @@ function getClosestIntersection(raycaster) {
     if(intersects.length > 0){
         for ( let i = 0; i < intersects.length; i++) {
             let intersect = intersects[i];
+            console.log(intersect)
             // console.log(intersect);
             if (intersect.object.noIntersect != 1) {
                 // console.log(intersect);
