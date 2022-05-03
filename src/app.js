@@ -34,6 +34,8 @@ document.body.style.margin = 0; // Removes margin around page
 document.body.style.overflow = 'hidden'; // Fix scrolling
 loadingBar();
 
+let a = 1;
+
 // Initialize core ThreeJS components
 // const scene = new SeedScene();
 const manager = new THREE.LoadingManager();
