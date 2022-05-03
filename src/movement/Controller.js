@@ -194,7 +194,7 @@ class Controller {
 
         let raycastPos = globals.MAIN_CAMERA.position.clone();
         let pW = 2.5;
-        let height = 4;
+        let height = 7;
 
         let moveF = 0;
         let moveR = 0;
@@ -282,8 +282,8 @@ class Controller {
         if (globals.LOADED[1]) {
             this.camera.position.y += delta * this.force * 10;
         }
-        if (this.camera.position.y < 4) {
-            this.camera.position.y = 4;
+        if (this.camera.position.y < height) {
+            this.camera.position.y = height;
         }
         
         

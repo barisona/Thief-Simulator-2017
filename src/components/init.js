@@ -81,7 +81,7 @@ export function initializeAndLoad(){
 
     scene.add(spotLight);
 
-    const playerGeo = new THREE.BoxGeometry(1.5, 4, 1.5);
+    const playerGeo = new THREE.BoxGeometry(1.5, 7, 1.5);
     const playerMat = new THREE.MeshBasicMaterial( {color: 0x0000FF });
     const player = new THREE.Mesh(playerGeo, playerMat);
 

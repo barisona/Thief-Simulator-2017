@@ -29,7 +29,7 @@ class Guard extends Group {
       //this.direction.random();
       this.direction.y = 0;
       this.mixer = mixer;
-      this.detector = new Detector(this.position.clone().add(new THREE.Vector3(0, 3.2, 0)), this.direction.clone(), 3.2, 30 );
+      this.detector = new Detector(this.position.clone().add(new THREE.Vector3(0, 6, 0)), this.direction.clone(), 3.2, 30 );
       
       const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
       const material = new THREE.MeshBasicMaterial({
@@ -64,7 +64,7 @@ class Guard extends Group {
   static update(guard, delta, collision){
     guard.mixer.update(delta);
 
-    guard.detector.update(guard.mesh.position.clone().add(new THREE.Vector3(0, 3.2, 0)), guard.direction.clone())
+    guard.detector.update(guard.mesh.position.clone().add(new THREE.Vector3(0, 6, 0)), guard.direction.clone())
     // collision
     if(collision){
       let randomRotation = Math.floor(Math.random()*3 + 1);
