@@ -14,7 +14,7 @@ class Test extends Group {
 
         this.name = 'test';
 
-        loader.load('./src/components/objects/House/house.json', (house) => {
+        loader.load('./src/components/objects/Test/house.json', (house) => {
             house.traverse(obj => {
                 if(obj.isMesh){
                     obj.receiveShadow = true;

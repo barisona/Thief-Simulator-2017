@@ -16,7 +16,8 @@ let models = {
         obj: 'Flashlight.obj',
         mtl: 'Flashlight.mtl',
         mesh: null,
-        angle: null,
+        rot: new THREE.Vector3(0, 0, 0),
+        angle: Math.PI,
         bboxScale: new THREE.Vector3(4, 3, 15),
         bbox: null,
         pos: null,
@@ -26,41 +27,45 @@ let models = {
     'Diamonds': {
         json: 'Diamonds.json',
         mesh: null,
-        angle: null,
+        rot: new THREE.Vector3(0, 0, 0),
+        angle: new THREE.Vector3(0, 0, 0),
         bboxScale: new THREE.Vector3(8, 4, 4),
         bbox: null,
-        pos: new THREE.Vector3(14, 3, 14),
+        pos: new THREE.Vector3(50, 3, -10),
         size: new THREE.Vector3(0.2, 0.2, 0.2),
         clickable: true
     },
     'Guitar': {
         json: "Guitar.json",
+        rot: new THREE.Vector3(0, 0, 0),
         mesh: null,
-        angle: Math.PI,
+        angle: new THREE.Vector3(0, 0, 0),
         bboxScale: new THREE.Vector3(4, 15, 4),
         bbox: null,
-        pos: new THREE.Vector3(3, 3, 14),
+        pos: new THREE.Vector3(42, 3, 30),
         size: new THREE.Vector3(0.5, 0.5, 0.5),
         clickable: true
     },
     'Ring': {
         json: "Ring.json",
+        rot: new THREE.Vector3(0, 0, 0),
         mesh: null,
-        angle: null,
+        angle: new THREE.Vector3(0, 0, 0),
         bboxScale: new THREE.Vector3(8, 4, 4),
         bbox: null,
-        pos: new THREE.Vector3(14, 3, 14),
-        size: new THREE.Vector3(0.2, 0.2, 0.2),
+        pos: new THREE.Vector3(10, 3, 32),
+        size: new THREE.Vector3(0.02, 0.02, 0.02),
         clickable: true
     },
     'Notebook': {
         obj: 'Notebook.obj',
         mtl: 'Notebook.mtl',
+        rot: new THREE.Vector3(0, 0, 0),
         mesh: null,
-        angle: Math.PI,
+        angle: new THREE.Vector3(0, 180, 0),
         bboxScale: new THREE.Vector3(20, 15, 4),
         bbox: null,
-        pos: new THREE.Vector3(3, 3, 14),
+        pos: new THREE.Vector3(17, 10, -20),
         size: new THREE.Vector3(0.5, 0.5, 0.5),
         clickable: true
     }
@@ -85,6 +90,7 @@ export function loadAssets(){
                     object.castShadow = true;
                     object.receiveShadow = true;
                     object.name = key;
+                    console.log(object);
                     globals.SCENE.add(object);
                 });
             });
@@ -93,6 +99,7 @@ export function loadAssets(){
             const loader = new THREE.ObjectLoader(globals.LOADING_MANAGER);
             loader.setPath('/src/models/');
             loader.load(models[key].json, (object) => {
+                console.log(object);
                 models[key].mesh = object;
                 object.castShadow = true;
                 object.receiveShadow = true;
@@ -149,6 +156,8 @@ export function setAssets(){
             rotateQ.setFromAxisAngle(rotateAngle, angle);
             obj.mesh.quaternion.rotateTowards(rotateQ, angle);
         }
+
+        obj.mesh.rotation.copy(obj.rot);
 
         if(obj.clickable){
             let clickable = {};
