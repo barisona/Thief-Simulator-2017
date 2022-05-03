@@ -18,7 +18,7 @@ class Guard {
       //this.direction.random();
       this.direction.y = 0;
       this.mixer = mixer;
-      this.detector = new Detector(this.position.clone().add(new THREE.Vector3(0, 3.2, 0)), this.direction.clone(), 7, 30 );
+      this.detector = new Detector(this.position.clone().add(new THREE.Vector3(0, 6, 0)), this.direction.clone(), 7, 30 );
       
       const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
       const material = new THREE.MeshBasicMaterial();
@@ -116,9 +116,9 @@ class Guard {
           obj.frustumCulled = false;
         })
 
-        mesh.scale.x *= 2;
-        mesh.scale.y *= 2;
-        mesh.scale.z *= 2;
+        mesh.scale.x *= 4;
+        mesh.scale.y *= 4;
+        mesh.scale.z *= 4;
         mesh.position.copy(position);
 
         const mixer = new THREE.AnimationMixer( mesh );

@@ -36,7 +36,7 @@ export function initializeAndLoad(){
     // exit camera
     //sweepingCameras.push(new SweepingCamera(new THREE.Vector3(54, 15, 20), new THREE.Vector3(0, -1, 0), -0.5, 0.5, 0 , 0, 0.1, 1.5));
     //sweepingCameras.push(new SweepingCamera(new THREE.Vector3(54, 15, 25), new THREE.Vector3(0, -1, 0), -0.5, 0.5, 0 , 0, 0.1, 1));
-    sweepingCameras.push(new SweepingCamera(1, new THREE.Vector3(54, 15, 30), new THREE.Vector3(0, -1, 0), -0.5, 0.5, 0 , 0, 0.1, 1.5));
+    sweepingCameras.push(new SweepingCamera(1, new THREE.Vector3(54, 14.5, 30), new THREE.Vector3(0, -1, 0), -0.5, 0.5, 0 , 0, 0.1, 1.5));
 
     // hallway camera
     sweepingCameras.push(new SweepingCamera(1, new THREE.Vector3(13.3, 14.5, -12), new THREE.Vector3(0, -1, 0), 0, 0.5, 1 , 1.5, 0.25, 1));

@@ -34,8 +34,6 @@ document.body.style.margin = 0; // Removes margin around page
 document.body.style.overflow = 'hidden'; // Fix scrolling
 loadingBar();
 
-let a = 1;
-
 // Initialize core ThreeJS components
 // const scene = new SeedScene();
 const manager = new THREE.LoadingManager();
@@ -282,9 +280,6 @@ const windowResizeHandler = () => {
     camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
 
-    let loadingContainer = document.getElementById("loading-container");
-    loadingContainer.style.width = innerWidth;
-    loadingContainer.style.height = innerHeight;
 /*     img.style.top = ycenter + 'px';
     img.style.left = xcenter + 'px'; */
 
