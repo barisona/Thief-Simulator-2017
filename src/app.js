@@ -279,7 +279,7 @@ function countdown(startTime, currTime) {
         timeLeft = currTime - startTime - globals.TIME_PAUSE;
     }
 
-    timeLeft = 300 - timeLeft;
+    timeLeft = 180 - timeLeft;
     if(timeLeft<=0) return -1;
 
     var m = Math.floor(timeLeft/60);
