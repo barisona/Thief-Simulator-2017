@@ -149,7 +149,6 @@ const onAnimationFrameHandler = (timeStamp) => {
     let innerCircle = globals.INNER_CIRCLE;
 
     if(hoverOn && !globals.GAMEOVER && !globals.GAMEWIN){
-        console.log(hoverOn);
         if(hoverOn == "Door_0_1"){
             if (globals.ITEMS.length == 0){
                 outerCircle.style.border = "2px solid red";
