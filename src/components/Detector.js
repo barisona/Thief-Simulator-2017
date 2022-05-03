@@ -69,8 +69,17 @@ class Detector {
 
         let detected = this.frontRaycaster.intersectObject(globals.PLAYER);
         // console.log(this.frontRaycaster.far);
+
+        let lightOpen = false;
         
-        if (detected.length != 0 && globals.SCENE.getObjectByName("Flashlight").visible) {
+        for(let key of Object.keys(globals.LIGHTS_ON)){
+            let light = globals.ROOM_LIGHTS[key];
+            let info = globals.LIGHTS_ON[key];
+
+            if(light.visible && info[0] == globals.CUR_ROOM) lightOpen = true;
+        }
+        console.log(lightOpen);
+        if (detected.length != 0 && (globals.SCENE.getObjectByName("Flashlight").visible || lightOpen)) {
             if (detected[0].distance <= lineLen) {
                 globals.GAMEOVER = true;
                 console.log(globals.MAIN_CAMERA.position);

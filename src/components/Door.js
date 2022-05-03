@@ -28,6 +28,7 @@ export class Door{
     }
 
     useDoor(){
+        let newRoom = globals.CUR_ROOM == this.room1 ? this.room2 : this.room1;
         if(globals.CUR_ROOM == this.room1){
             globals.MAIN_CAMERA.position.copy(this.pos2);
             globals.CUR_ROOM = this.room2;

@@ -23,6 +23,16 @@ export function restart(){
         items.push(globals.ITEMS_COPY[i]);
     }
 
+    console.log(globals.ROOM_LIGHTS);
+
+    for(let key of Object.keys(globals.ROOM_LIGHTS)){
+        globals.ROOM_LIGHTS[key].visible = false;
+        globals.LIGHTS_ON[key][1] = false;
+        globals.GHOST_LIGHTS[key].visible = false;
+    }
+
+    globals.CUR_ROOM = 1;
+
     globals.ITEMS = items;
 
     let innerstart = '<link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,100;1,300&family=Poppins&display=swap" rel="stylesheet"><style>#items-container {position: fixed;background-color: rgba(0,0,0,0.5);bottom: 0;right: 0;left: 0;top: 0;opacity: 1;transition: 1s;}#items {padding-top: 5%;width: 50%;color: #ffffff;text-align: center;font-family: Poppins, sans-serif;font-size: 14px;line-height: 40px;cursor: pointer;text-align: center;margin-left: auto;margin-right: auto;}</style><div id="items"><br /><br /><br /><br /><span style="font-size:2em; font-weight: 300; font-family: Montserrat, sans-serif; font-style: italic;">Items to steal:</span><br /><br />';

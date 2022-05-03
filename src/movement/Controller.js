@@ -110,8 +110,12 @@ class Controller {
                     if(clickable.includes("Light_Switch_")){
                         let lightParts = clickable.split("_");
                         let lightName = "roomLight_" + lightParts[2];
+
+                        globals.LIGHTS_ON[lightName][1] = !globals.LIGHTS_ON[lightName][1];
+
                         let roomLight = scene.getObjectByName(lightName);
                         if(roomLight){
+                            console.log(roomLight);
                             roomLight.visible = !(roomLight.visible);
                         }
                         
@@ -130,6 +134,18 @@ class Controller {
                         else{
                             let door = globals.DOORS[clickable];
                             door.useDoor();
+
+                            for(let key of Object.keys(globals.ROOM_LIGHTS)){
+                                let info = globals.LIGHTS_ON[key];
+                                if(info[1] && info[0] == globals.CUR_ROOM){
+                                    globals.ROOM_LIGHTS[key].visible = true;
+                                    globals.GHOST_LIGHTS[key].visible = true;
+                                }
+                                else{
+                                    globals.ROOM_LIGHTS[key].visible = false;
+                                    globals.GHOST_LIGHTS[key].visible = false;
+                                }
+                            }
                         }
                     }
                     else{
@@ -151,6 +167,8 @@ class Controller {
                         globals.ITEMSLISTHTML.innerHTML = innerstart + innermid + innerend;
                     }
                 }
+                console.log(globals.LIGHTS_ON);
+                console.log(globals.ROOM_LIGHTS);
             }
         }
 
