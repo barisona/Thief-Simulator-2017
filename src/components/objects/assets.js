@@ -24,8 +24,7 @@ let models = {
         clickable: false
     },
     'Diamonds': {
-        obj: 'Diamonds.obj',
-        mtl: 'Diamonds.mtl',
+        json: 'Diamonds.json',
         mesh: null,
         angle: null,
         bboxScale: new THREE.Vector3(8, 4, 4),
@@ -35,8 +34,7 @@ let models = {
         clickable: true
     },
     'Guitar': {
-        obj: 'Guitar.obj',
-        mtl: 'Guitar.mtl',
+        json: "Guitar.json",
         mesh: null,
         angle: Math.PI,
         bboxScale: new THREE.Vector3(4, 15, 4),
@@ -44,37 +42,64 @@ let models = {
         pos: new THREE.Vector3(3, 3, 14),
         size: new THREE.Vector3(0.5, 0.5, 0.5),
         clickable: true
-    }/* ,
-    'Lowpoly_Notebook_2': {
-        obj: 'Lowpoly_Notebook_2.obj',
-        mtl: 'Lowpoly_Notebook_2.mtl',
-        pos: new THREE.Vector3(0, 0, 0),
+    },
+    'Ring': {
+        json: "Ring.json",
         mesh: null,
+        angle: null,
+        bboxScale: new THREE.Vector3(8, 4, 4),
+        bbox: null,
+        pos: new THREE.Vector3(14, 3, 14),
+        size: new THREE.Vector3(0.2, 0.2, 0.2),
         clickable: true
-    } */
+    },
+    'Notebook': {
+        obj: 'Notebook.obj',
+        mtl: 'Notebook.mtl',
+        mesh: null,
+        angle: Math.PI,
+        bboxScale: new THREE.Vector3(20, 15, 4),
+        bbox: null,
+        pos: new THREE.Vector3(3, 3, 14),
+        size: new THREE.Vector3(0.5, 0.5, 0.5),
+        clickable: true
+    }
 }
 
 export function loadAssets(){
     globals.MODELS = models;
 
     for(let key of Object.keys(models)){
-        // Load Assets
-        let mtlLoader = new MTLLoader(globals.LOADING_MANAGER);
-        mtlLoader.setPath('/src/models/');
-        mtlLoader.load(key + '.mtl', function (materials) {
+        if(models[key].mtl){
+            // Load Assets
+            let mtlLoader = new MTLLoader(globals.LOADING_MANAGER);
+            mtlLoader.setPath('/src/models/');
+            mtlLoader.load(key + '.mtl', function (materials) {
 
-            materials.preload();
-            var objLoader = new OBJLoader(globals.LOADING_MANAGER);
-            objLoader.setMaterials(materials);
-            objLoader.setPath('/src/models/');
-            objLoader.load(key + '.obj', function (object) {
+                materials.preload();
+                var objLoader = new OBJLoader(globals.LOADING_MANAGER);
+                objLoader.setMaterials(materials);
+                objLoader.setPath('/src/models/');
+                objLoader.load(key + '.obj', function (object) {
+                    models[key].mesh = object;
+                    object.castShadow = true;
+                    object.receiveShadow = true;
+                    object.name = key;
+                    globals.SCENE.add(object);
+                });
+            });
+        }
+        else{
+            const loader = new THREE.ObjectLoader(globals.LOADING_MANAGER);
+            loader.setPath('/src/models/');
+            loader.load(models[key].json, (object) => {
                 models[key].mesh = object;
                 object.castShadow = true;
                 object.receiveShadow = true;
                 object.name = key;
                 globals.SCENE.add(object);
             });
-        });
+        }
     }
 }
 
@@ -129,6 +154,7 @@ export function setAssets(){
             let clickable = {};
             clickable.mesh = obj.mesh;
             clickable.bbox = new THREE.Box3().setFromObject(obj.mesh);
+            clickable.collected = false;
             globals.CLICKABLE_MESHES[key] = clickable;
         }
     }

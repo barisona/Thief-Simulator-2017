@@ -143,8 +143,11 @@ export function isClickable(models, crosshair){
                 let cubePos = cube.position;
                 let dist = cameraPos.distanceTo(cubePos);
 
-                if(dist < 10) return key;
-                else return null;
+                if(dist < 10){
+                    if(key.includes("Light_Switch_") || key.includes("Door_"))
+                        return key;
+                    else if (!models[key].collected)  return key;
+                }
             }
         }
         

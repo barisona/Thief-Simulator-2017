@@ -1,6 +1,7 @@
 import { Vector2, Vector3, Raycaster, PerspectiveCamera } from 'three';
 import * as THREE from "../../build/three.module.js"
 import {globals} from '../globals'
+import { OBJLoader } from '../loaders/OBJLoader.js';
 import { showPauseMenu, hidePauseMenu, showItemList, hideItemList } from '../util';
 
 class Controller {
@@ -152,6 +153,8 @@ class Controller {
                         let obj = scene.getObjectByName(clickable);
                         scene.remove(obj);
 
+                        globals.CLICKABLE_MESHES[clickable].collected = true;
+
                         const index = globals.ITEMS.indexOf(clickable);
                         if (index > -1) {
                             globals.ITEMS.splice(index, 1);
@@ -167,8 +170,6 @@ class Controller {
                         globals.ITEMSLISTHTML.innerHTML = innerstart + innermid + innerend;
                     }
                 }
-                console.log(globals.LIGHTS_ON);
-                console.log(globals.ROOM_LIGHTS);
             }
         }
 

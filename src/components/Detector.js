@@ -78,7 +78,6 @@ class Detector {
 
             if(light.visible && info[0] == globals.CUR_ROOM) lightOpen = true;
         }
-        console.log(lightOpen);
         if (detected.length != 0 && (globals.SCENE.getObjectByName("Flashlight").visible || lightOpen)) {
             if (detected[0].distance <= lineLen) {
                 globals.GAMEOVER = true;
