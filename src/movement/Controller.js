@@ -182,7 +182,7 @@ class Controller {
         let delta = this.clock.getDelta();
         let thief = this.controls.getObject();
         let howFast = delta * 5;
-        if (this.sprint) howFast *= 1.8;
+        if (this.sprint) howFast *= 2.25;
 
         if (this.forward && this.backward) {
             this.dir.x = 0;
