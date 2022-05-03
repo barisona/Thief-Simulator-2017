@@ -5,9 +5,10 @@ import {globals} from '../globals'
 import Detector from './Detector.js';
 
 class Guard {
-  constructor (mesh, position, clips, mixer, id) {
+  constructor (mesh, roomNum, position, clips, mixer, id) {
     if(mesh){
       this.position = position;
+      this.roomNum = roomNum;
       this.speed = Math.random()*3+3;
       this.id = id.toString();
       this.name = 'guard' + this.id;
@@ -20,15 +21,13 @@ class Guard {
       this.detector = new Detector(this.position.clone().add(new THREE.Vector3(0, 3.2, 0)), this.direction.clone(), 7, 30 );
       
       const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
-      const material = new THREE.MeshBasicMaterial({
-        wireframe: true
-      });
+      const material = new THREE.MeshBasicMaterial();
       material.color.setHex(0xFF0000);
       const bboxMesh = new THREE.Mesh( geometry, material );
       bboxMesh.geometry.computeBoundingBox();
       this.mesh = mesh;
       this.mesh.add(bboxMesh);
-      bboxMesh.visible = true;
+      bboxMesh.visible = false;
       bboxMesh.position.y += 1;
       bboxMesh.name = 'bbox' + this.id;
   }
@@ -66,16 +65,17 @@ class Guard {
     let ghostScene = globals.GHOSTSCENE;
     let ghostBoxes = [];
 
+    // in room order (1 to 5)
     let positions = [
       new THREE.Vector3(-12, 0, 8),
-      new THREE.Vector3(4, 0, -18),
-      new THREE.Vector3(19, 0, -33),
-      new THREE.Vector3(12, 0, 22),
       new THREE.Vector3(18, 0, 20),
+      new THREE.Vector3(10, 0, 26),
+      new THREE.Vector3(19, 0, -33),
+      new THREE.Vector3(4, 0, -18)
     ]
     for(let i = 0; i < positions.length; i++){
         let positionGuard = positions[i];
-        let guard = await Guard.build(positionGuard, i);
+        let guard = await Guard.build(i + 1, positionGuard, i);
         if(guard){
             guard.castShadow = true;
             guard.receiveShadow = true;
@@ -88,6 +88,7 @@ class Guard {
 
             let ghostBox = {}
             ghostGuard.visible = true;
+            ghostGuard.position.copy(guard.mesh.position);
             ghostBox.ghost = ghostGuard;
             ghostBox.real = guard.mesh;
        
@@ -103,7 +104,7 @@ class Guard {
     globals.GHOSTBOXES = ghostBoxes;
   }
 
-  static async build (position, id) {
+  static async build (roomNumber, position, id) {
       return Guard.loadMesh()
       .then(function(gltf){
         const mesh = gltf.scene;
@@ -123,7 +124,7 @@ class Guard {
         const mixer = new THREE.AnimationMixer( mesh );
         const clips = gltf.animations;
 
-       return new Guard(mesh, position, clips, mixer, id);
+       return new Guard(mesh, roomNumber, position, clips, mixer, id);
       }).catch(err => console.log("guard couldn't get loaded."));
   }
 

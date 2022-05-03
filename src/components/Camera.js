@@ -3,7 +3,8 @@ import * as THREE from "../../build/three.module.js"
 import Detector from './Detector';
 
 class SweepingCamera {
-    constructor(position, direction, hmin, hmax, vmin, vmax, radius,  speed) {
+    constructor(roomNum, position, direction, hmin, hmax, vmin, vmax, radius,  speed) {
+        this.roomNum = roomNum;
         this.position = position;
         this.direction = direction;
         this.radius = radius;

@@ -43,56 +43,49 @@ export function updateGuards(){
     let delta = globals.CLOCK.getDelta();
     for(let i = 0; i < globals.GUARDS.length; i++){
         let guard = globals.GUARDS[i];
-        globals.GHOSTBOXES[i].ghost.position.copy(guard.mesh.position);
+        if(guard.roomNum == globals.CUR_ROOM){
 
-        let collided = false;
+            let ghostBox = globals.GHOSTBOXES[i].ghost;
+            
+            ghostBox.visible = true;
+            ghostBox.position.copy(guard.mesh.position);
 
-        /* let guardBbox = guard.mesh.children[1];
-
-        let guardBox = new THREE.Box3().setFromObject(guardBbox); */
-
-        let guardBox = new THREE.Box3().setFromObject(guard.mesh).expandByScalar(2);
-
-        let playerBox = new THREE.Box3();
-        globals.PLAYER.geometry.computeBoundingBox();
-
-        playerBox.copy(globals.PLAYER.geometry.boundingBox ).applyMatrix4(globals.PLAYER.matrixWorld);
-
-        if (guardBox.intersectsBox(playerBox)) {
-            globals.GAMEOVER = true;
+            let collided = false;
+    
+            /* let guardBbox = guard.mesh.children[1];
+    
+            let guardBox = new THREE.Box3().setFromObject(guardBbox); */
+    
+            let guardBox = new THREE.Box3().setFromObject(guard.mesh).expandByScalar(1.5);
+    
+            let playerBox = new THREE.Box3();
+            globals.PLAYER.geometry.computeBoundingBox();
+    
+            playerBox.copy(globals.PLAYER.geometry.boundingBox ).applyMatrix4(globals.PLAYER.matrixWorld);
+    
+            if (guardBox.intersectsBox(playerBox)) {
+                globals.GAMEOVER = true;
+            }
+    
+            let dX = guard.direction.x * guard.speed * delta;
+            let dZ = guard.direction.z * guard.speed * delta;
+    
+            collided = shootRays(guard.mesh.position, guard.direction, 2);
+    
+            if (collided) {
+                guard.mesh.position.x -= 2*dX;
+                guard.mesh.position.z -= 2*dZ;
+            }
+    
+            Guard.update(guard, delta, collided);
+    
+            dX = guard.direction.x * guard.speed * delta;
+            dZ = guard.direction.z * guard.speed * delta;
+    
+            guard.mesh.position.x += dX;
+            guard.mesh.position.z += dZ;
         }
-
-        let dX = guard.direction.x * guard.speed * delta;
-        let dZ = guard.direction.z * guard.speed * delta;
-
-        // globals.SCENE.traverse((child) => {
-        //     let childBox = new THREE.Box3();
-        //     if(child.geometry && child.geometry.boundingBox){
-        //         childBox.copy(child.geometry.boundingBox).applyMatrix4( child.matrixWorld );
-        //         if(childBox.intersectsBox(guardBox) && child.name != ("bbox" + guard.id)
-        //            && child.name != "Crosshair" && child.name != "Player" 
-        //            && !guard.mesh.getObjectByName(child.name)){
-        //             guard.mesh.position.x -= 2*dX;
-        //             guard.mesh.position.z -= 2*dZ;
-        //             collided = true;
-        //         }  
-        //     }
-        // })
-
-        collided = shootRays(guard.mesh.position, guard.direction, 2);
-
-        if (collided) {
-            guard.mesh.position.x -= 2*dX;
-            guard.mesh.position.z -= 2*dZ;
-        }
-
-        Guard.update(guard, delta, collided);
-
-        dX = guard.direction.x * guard.speed * delta;
-        dZ = guard.direction.z * guard.speed * delta;
-
-        guard.mesh.position.x += dX;
-        guard.mesh.position.z += dZ;
+        else globals.GHOSTBOXES[i].ghost.visible = false;
     }
 }
 

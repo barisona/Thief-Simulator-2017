@@ -23,6 +23,12 @@ import {globals} from './globals'
 import {setAssets, loadAssets} from './components/objects/assets.js'
 import { initializeAndLoad } from './components/init';
 import {loadHTML, loadingBar, createCrosshair} from './loadHtml.js'
+import Stats from 'stats.js'
+
+const stats = new Stats()
+stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild(stats.dom)
+
 
 document.body.style.margin = 0; // Removes margin around page
 document.body.style.overflow = 'hidden'; // Fix scrolling
@@ -98,9 +104,14 @@ controls.addEventListener('lock', () => {
     window.requestAnimationFrame(onAnimationFrameHandler);
 })
 controls.addEventListener('unlock', function () {
-    showPauseMenu();
-    globals.PAUSE = true;
-    globals.PAUSE_START = Math.floor(Date.now()/1000);
+    console.log("Hey");
+    globals.INNER_CIRCLE.style.display = "none";
+    globals.OUTER_CIRCLE.style.display = "none";
+    if(!globals.GAMEOVER && !globals.GAMEWIN){
+        showPauseMenu();
+        globals.PAUSE = true;
+        globals.PAUSE_START = Math.floor(Date.now()/1000);
+    }
 });
 
 const pointer = new THREE.Vector2();
@@ -115,22 +126,14 @@ camera.lookAt(56, 4, -12)
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
-    if(globals.LOADED[0] && globals.LOADED[1]){
-        console.log("loaded");
-    }
-    if (globals.GAMEOVER) {
-        globals.END_OF_GAME.innerHTML = "You Got Caught!";
-    }
-    if (globals.GAMEWIN) {
-        globals.END_OF_GAME.innerHTML = "WINNER WINNER CHICKEN DINNER";
-    }
-
+    stats.begin();
     if (globals.SWEEPING_CAMERAS) {
         for (let i = 0; i < globals.SWEEPING_CAMERAS.length; i++) {
-            globals.SWEEPING_CAMERAS[i].update();
+            let cam = globals.SWEEPING_CAMERAS[i];
+            if(cam.roomNum == globals.CUR_ROOM)
+                globals.SWEEPING_CAMERAS[i].update();
         }
     }
-    
 
     globals.MINIMAP_CAM.position.set(camera.position.x, 50, camera.position.z);
     globals.MINIMAP_CAM.lookAt(camera.position.x, 0, camera.position.z);
@@ -138,8 +141,8 @@ const onAnimationFrameHandler = (timeStamp) => {
     let hoverOn = isClickable(globals.CLICKABLE_MESHES, cube);
     globals.CLICKABLE = hoverOn;
 
-    let outerCircle = document.getElementsByClassName("outerCircle")[0];
-    let innerCircle = document.getElementsByClassName("innerCircle")[0];
+    let outerCircle = globals.OUTER_CIRCLE;
+    let innerCircle = globals.INNER_CIRCLE;
 
     if(hoverOn && !globals.GAMEOVER && !globals.GAMEWIN){
         if(hoverOn == "Door_0_1"){
@@ -157,6 +160,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     }
 
     updateGuards();
+
     if(!globals.LOADED[0]) setAssets();
 
     globals.FLASH_LIGHT.position.copy(camera.position);
@@ -220,9 +224,22 @@ const onAnimationFrameHandler = (timeStamp) => {
         globals.PAUSE = true
     }
 
-    if (!globals.PAUSE) {
+    if (globals.GAMEOVER) {
+        globals.INNER_CIRCLE.style.display = "none";
+        globals.OUTER_CIRCLE.style.display = "none";
+        globals.END_OF_GAME.innerHTML = "You Got Caught!";
+    }
+    if (globals.GAMEWIN) {
+        globals.INNER_CIRCLE.style.display = "none";
+        globals.OUTER_CIRCLE.style.display = "none";
+        globals.END_OF_GAME.innerHTML = "WINNER WINNER CHICKEN DINNER";
+    }
+
+
+    if (!globals.PAUSE && !globals.GAMEOVER && !globals.GAMEWIN) {
         window.requestAnimationFrame(onAnimationFrameHandler);
     }
+    stats.end();
 };
 
 
@@ -262,6 +279,10 @@ const windowResizeHandler = () => {
     minimapRenderer.setSize(innerHeight / 4.2, innerHeight / 4.2);
     camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
+
+    let loadingContainer = document.getElementById("loading-container");
+    loadingContainer.style.width = innerWidth;
+    loadingContainer.style.height = innerHeight;
 /*     img.style.top = ycenter + 'px';
     img.style.left = xcenter + 'px'; */
 

@@ -31,27 +31,27 @@ export function initializeAndLoad(){
     const sweepingCameras = new Array();
 
     // light camera
-    sweepingCameras.push(new SweepingCamera(new THREE.Vector3(54, 14, 0), new THREE.Vector3(0, -1, 0), -0.25, 0.25, -0.25 , 0.25, 0.1, 1));
+    //sweepingCameras.push(new SweepingCamera(new THREE.Vector3(54, 14, 0), new THREE.Vector3(0, -1, 0), -0.25, 0.25, -0.25 , 0.25, 0.1, 1));
 
     // exit camera
-    sweepingCameras.push(new SweepingCamera(new THREE.Vector3(54, 15, 20), new THREE.Vector3(0, -1, 0), -0.5, 0.5, 0 , 0, 0.1, 1.5));
-    sweepingCameras.push(new SweepingCamera(new THREE.Vector3(54, 15, 25), new THREE.Vector3(0, -1, 0), -0.5, 0.5, 0 , 0, 0.1, 1));
-    sweepingCameras.push(new SweepingCamera(new THREE.Vector3(54, 15, 30), new THREE.Vector3(0, -1, 0), -0.5, 0.5, 0 , 0, 0.1, 1.5));
+    //sweepingCameras.push(new SweepingCamera(new THREE.Vector3(54, 15, 20), new THREE.Vector3(0, -1, 0), -0.5, 0.5, 0 , 0, 0.1, 1.5));
+    //sweepingCameras.push(new SweepingCamera(new THREE.Vector3(54, 15, 25), new THREE.Vector3(0, -1, 0), -0.5, 0.5, 0 , 0, 0.1, 1));
+    sweepingCameras.push(new SweepingCamera(1, new THREE.Vector3(54, 15, 30), new THREE.Vector3(0, -1, 0), -0.5, 0.5, 0 , 0, 0.1, 1.5));
 
     // hallway camera
-    sweepingCameras.push(new SweepingCamera(new THREE.Vector3(13.3, 14.5, -12), new THREE.Vector3(0, -1, 0), 0, 0.5, 1 , 1.5, 0.25, 1));
+    sweepingCameras.push(new SweepingCamera(1, new THREE.Vector3(13.3, 14.5, -12), new THREE.Vector3(0, -1, 0), 0, 0.5, 1 , 1.5, 0.25, 1));
 
     // bathroom camera
-    sweepingCameras.push(new SweepingCamera(new THREE.Vector3(-11.2, 14.3, 41.5), new THREE.Vector3(0, -1, 0), 0, 1, 0, 1, 0.25, 1));
+    sweepingCameras.push(new SweepingCamera(3, new THREE.Vector3(-11.2, 14.3, 41.5), new THREE.Vector3(0, -1, 0), 0, 1, 0, 1, 0.25, 1));
 
     // normal bedroom camera
-    sweepingCameras.push(new SweepingCamera(new THREE.Vector3(17.9, 14.6, 42.4), new THREE.Vector3(0, -1, 0), 0, 0, 0, -1.5, 0.4, 1));
+    sweepingCameras.push(new SweepingCamera(2, new THREE.Vector3(17.9, 14.6, 42.4), new THREE.Vector3(0, -1, 0), 0, 0, 0, -1.5, 0.4, 1));
 
     // creepy bedroom camera
-    sweepingCameras.push(new SweepingCamera(new THREE.Vector3(13.1, 14.3, -43), new THREE.Vector3(0, -1, 0), -0.25, -0.25, 0, 1, 0.25, 1));
+    sweepingCameras.push(new SweepingCamera(5, new THREE.Vector3(13.1, 14.3, -43), new THREE.Vector3(0, -1, 0), -0.25, -0.25, 0, 1, 0.25, 1));
 
     // office camera
-    sweepingCameras.push(new SweepingCamera(new THREE.Vector3(42.5, 14.3, -43), new THREE.Vector3(0, -1, 0), -0.25, 2, 0, 0, 0.25, 1));
+    sweepingCameras.push(new SweepingCamera(4, new THREE.Vector3(42.5, 14.3, -43), new THREE.Vector3(0, -1, 0), -0.25, 2, 0, 0, 0.25, 1));
 
 
     globals.SWEEPING_CAMERAS = sweepingCameras;
