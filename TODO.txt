@@ -1,0 +1,19 @@
+THINGS TO DO:
+
+get rid of the cube as the crosshair
+    - the crosshair shouldn't change size and the way the cube works right now is computationally inefficient.
+    - this would require changing how the spotlight works because the spotlight is shining at the cube
+
+move all objects into the objects folder
+    - this makes it way more organized and puts less stress on app.js
+    - this will require changing how some things work slightly
+        - guards, detector, flashlight, other items, etc
+        - essentially, all loading and adding to the scene and updating should be in the respective classes, not in app.js or a util.js
+    - follow the structure of the get down game
+    - this allows us to use scene.update to update everything in the animation loop instead of using every update function individually.
+        - additional comments: 
+            - guard has two update functions? can we put it into just one function in guard.js?
+            - the rendering of the guards seems overly complicated. the constructor of guard should not need so many parameters
+    - this will allow us to manage hte animation loop much better and i will finally be able to pause the game
+        - the animation loop is all over the place, with different things happening everywhere, no structure at all basically.
+
