@@ -134,8 +134,8 @@ const onAnimationFrameHandler = (timeStamp) => {
     if (globals.SWEEPING_CAMERAS) {
         for (let i = 0; i < globals.SWEEPING_CAMERAS.length; i++) {
             let cam = globals.SWEEPING_CAMERAS[i];
-            //if(cam.roomNum == globals.CUR_ROOM)
-                //globals.SWEEPING_CAMERAS[i].update();
+            if(cam.roomNum == globals.CUR_ROOM)
+                globals.SWEEPING_CAMERAS[i].update();
         }
     }
 
@@ -144,8 +144,6 @@ const onAnimationFrameHandler = (timeStamp) => {
     let cube = globals.CUBE;
     let hoverOn = isClickable(globals.CLICKABLE_MESHES, cube);
     globals.CLICKABLE = hoverOn;
-
-    console.log(globals.MAIN_CAMERA.position);
 
     let outerCircle = globals.OUTER_CIRCLE;
     let innerCircle = globals.INNER_CIRCLE;
@@ -167,7 +165,7 @@ const onAnimationFrameHandler = (timeStamp) => {
         innerCircle.style.backgroundColor = "white";
     }
 
-   //updateGuards();
+   updateGuards();
 
     if(!globals.LOADED[0]) setAssets();
 

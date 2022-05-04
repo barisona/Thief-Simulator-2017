@@ -29,7 +29,7 @@ let models = {
         angle: null,
         bboxScale: new THREE.Vector3(8, 4, 4),
         bbox: null,
-        pos: new THREE.Vector3(50, 3, -10),
+        pos: new THREE.Vector3(41, 4, 38.4),
         size: new THREE.Vector3(0.2, 0.2, 0.2),
         clickable: true
     },
@@ -39,7 +39,7 @@ let models = {
         angle: null,
         bboxScale: new THREE.Vector3(4, 15, 4),
         bbox: null,
-        pos: new THREE.Vector3(42, 3, 30),
+        pos: new THREE.Vector3(19, 1.5, -44),
         size: new THREE.Vector3(0.5, 0.5, 0.5),
         clickable: true
     },
@@ -49,7 +49,7 @@ let models = {
         angle: null,
         bboxScale: new THREE.Vector3(8, 4, 4),
         bbox: null,
-        pos: new THREE.Vector3(10, 3, 32),
+        pos: new THREE.Vector3(4.4, 4.3, 41),
         size: new THREE.Vector3(0.02, 0.02, 0.02),
         clickable: true
     },
@@ -60,7 +60,7 @@ let models = {
         angle: Math.PI,
         bboxScale: new THREE.Vector3(20, 15, 4),
         bbox: null,
-        pos: new THREE.Vector3(17, 10, -20),
+        pos: new THREE.Vector3(-4, 5, 5.5),
         size: new THREE.Vector3(0.5, 0.5, 0.5),
         clickable: true
     }

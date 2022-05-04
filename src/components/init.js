@@ -26,7 +26,6 @@ export function initializeAndLoad(){
 
     // document.body.appendChild();
     
-
     // set up sweepingcameras
     const sweepingCameras = new Array();
 
