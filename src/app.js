@@ -183,11 +183,11 @@ const onAnimationFrameHandler = (timeStamp) => {
     let player = globals.PLAYER;
     player.position.set(camera.position.x, camera.position.y, camera.position.z);
     //playerBbox.position.set(camera.position.x, camera.position.y, camera.position.z);
-    player.rotation.set(
-            camera.rotation.x,
-            camera.rotation.y,
-            camera.rotation.z
-        );
+    // player.rotation.set(
+    //         camera.rotation.x,
+    //         camera.rotation.y,
+    //         camera.rotation.z
+    //     );
     
     // update the picking ray with the camera and pointer position
 
